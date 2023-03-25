@@ -17,7 +17,7 @@ export class DayPlannerStack extends Stack {
         }), 
         
         // The build steps for the pipeline are defined by these commands
-        
+        installCommands: ['npm i -g npm@latest'],
         commands: ['cd cdk',
                     'npm ci',
                     'npm run build',
