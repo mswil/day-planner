@@ -7,7 +7,7 @@ const { promisify } = require('util');
 const exec = promisify(require('child_process').exec)
 
 async function createStack() {
-  console.log(process.env.CODEBUILD_WEBHOOK_HEAD_REF)
+  console.log(JSON.stringify(process.env))
   const branchCommand = await exec('git branch --show-current'); 
   const branchName = branchCommand.stdout.trim(); 
   console.log(branchName);
