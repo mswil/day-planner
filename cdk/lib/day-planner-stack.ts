@@ -10,9 +10,9 @@ export class DayPlannerStack extends Stack {
     super(scope, id, props);
 
     new CodePipeline(this, 'Pipeline', {
-      pipelineName: 'CDKTestPipeline',       // Creating a new code pipeline which is a construct
+      pipelineName: 'DayPlannerCDKPipeline',       // Creating a new code pipeline which is a construct
       synth: new ShellStep('Synth', {        // Add a new synthesis 'shellstep' which will be pointed at our gihub repository 
-        input: CodePipelineSource.gitHub('mswil/day-planner', 'Pipeline', { // replace the GitHub repository name with 'user-name/repository-name'
+        input: CodePipelineSource.gitHub('mswil/day-planner', 'main', { // replace the GitHub repository name with 'user-name/repository-name'
           authentication: sm.Secret.fromSecretNameV2(this, "github-token", "github-token-other").secretValue
         }), 
         
