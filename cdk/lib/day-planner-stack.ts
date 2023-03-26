@@ -18,12 +18,14 @@ export class DayPlannerStack extends Stack {
         
         // The build steps for the pipeline are defined by these commands
         installCommands: ['npm i -g npm@latest'],
-        commands: ['cd cdk',
+        commands: ['pwd', 'ls -al',
+          'cd cdk',
+          'pwd', 'ls -al',
                     'npm ci',
                     'npm run build',
                     'npx cdk synth'],
         
-        primaryOutputDirectory: "cdk/cdk.out"
+        primaryOutputDirectory: "cdk.out"
       }),
     })
 
