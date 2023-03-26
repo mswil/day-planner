@@ -26,7 +26,7 @@ export class DayPlannerStack extends Stack {
                     'npx cdk synth',
                   'pwd', 'ls -al'],
         
-        primaryOutputDirectory: "cdk.out"
+        // primaryOutputDirectory: "cdk/cdk.out"
       }),
     })
 
