@@ -2,7 +2,7 @@
   "name": "day-planner",
   "version": "0.1.0",
   "bin": {
-    "cdk": "bin/day-planner.js"
+    "day-planner": "bin/day-planner.js"
   },
   "scripts": {
     "build": "tsc",
