@@ -7,10 +7,11 @@ const { promisify } = require('util');
 const exec = promisify(require('child_process').exec)
 
 async function createStack() {
-  console.log(JSON.stringify(process.env))
+  //   "CODEBUILD_INITIATOR": "codepipeline/DayPlannerCDKPipeline-cdk-branching-strategy",
+  console.log("LOOK HERE " + JSON.stringify(process.env.CODEBUILD_INITIATOR))
   const branchCommand = await exec('git branch --show-current'); 
   const branchName = branchCommand.stdout.trim(); 
-  console.log(branchName);
+  console.log("branch name " + branchName);
   const app = new cdk.App();
   new DayPlannerStack(app, `DayPlannerStack-${branchName}`, branchName);
 }
