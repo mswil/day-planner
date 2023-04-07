@@ -3,19 +3,9 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { DayPlannerStack } from '../lib/day-planner-stack';
 
+// Creates a new Stack named after the current branch being modified during the codebuild process
+// Will need to run cdk deploy after pushing a new branch
+const codebuildInitiator = process.env.CODEBUILD_INITIATOR
+const branchName = codebuildInitiator ? codebuildInitiator.substring(codebuildInitiator.indexOf("-") + 1) : "main";
 const app = new cdk.App();
-new DayPlannerStack(app, 'DayPlannerStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
-
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
-
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+new DayPlannerStack(app, `DayPlannerStack-${branchName}`, branchName);
