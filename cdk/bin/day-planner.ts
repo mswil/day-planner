@@ -23,5 +23,7 @@ async function computeBranchName() {
 
 computeBranchName().then(branchName => {
   const app = new cdk.App();
-  new DayPlannerPipelineStack(app, `DayPlannerPipelineStack-${branchName}`, branchName);
+  new DayPlannerPipelineStack(app, `DayPlannerPipelineStack-${branchName}`, branchName, {
+    env: { account: "639197873250", region: "us-east-1" }
+  });
 })
