@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { DayPlannerStack } from '../lib/day-planner-stack';
+import { DayPlannerPipelineStack } from '../lib/day-planner-pipeline-stack';
 
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec)
@@ -23,5 +23,5 @@ async function computeBranchName() {
 
 computeBranchName().then(branchName => {
   const app = new cdk.App();
-  new DayPlannerStack(app, `DayPlannerStack-${branchName}`, branchName);
+  new DayPlannerPipelineStack(app, `DayPlannerPipelineStack-${branchName}`, branchName);
 })
