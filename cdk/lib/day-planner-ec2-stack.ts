@@ -1,6 +1,6 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AmazonLinuxGeneration, AmazonLinuxImage, Instance, InstanceClass, InstanceSize, InstanceType, Peer, Port, SecurityGroup, Vpc } from 'aws-cdk-lib/aws-ec2';
+import { AmazonLinuxGeneration, AmazonLinuxImage, Instance, InstanceClass, InstanceSize, InstanceType, Peer, Port, SecurityGroup, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import {readFileSync} from 'fs';
 
 export class Ec2Stack extends Stack {
@@ -22,7 +22,10 @@ export class Ec2Stack extends Stack {
           generation: AmazonLinuxGeneration.AMAZON_LINUX_2
         }),
         vpc,
-        securityGroup
+        securityGroup,
+        vpcSubnets: {
+          subnetType: SubnetType.PUBLIC,
+        }
       })
 
       const userDataScript = readFileSync("./lib/user-data.sh" , 'utf8')
