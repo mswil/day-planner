@@ -1,7 +1,9 @@
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AmazonLinuxGeneration, AmazonLinuxImage, Instance, InstanceClass, InstanceSize, InstanceType, Peer, Port, SecurityGroup, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
+import { NetworkLoadBalancer } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import {readFileSync} from 'fs';
+import { InstanceIdTarget } from 'aws-cdk-lib/aws-elasticloadbalancingv2-targets';
 
 export class Ec2Stack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
@@ -27,6 +29,16 @@ export class Ec2Stack extends Stack {
           subnetType: SubnetType.PUBLIC,
         }
       })
+
+      const networkLoadBalancer = new NetworkLoadBalancer(this, 'NetworkLoadBalancer', { 
+        vpc,
+        internetFacing: true
+       });
+      const listener = networkLoadBalancer.addListener('listener', { port: 80 });
+      listener.addTargets('target', {
+        port: 80,
+        targets: [new InstanceIdTarget(ec2Instance.instanceId)]
+      });
 
       const userDataScript = readFileSync("./lib/user-data.sh" , 'utf8')
 
