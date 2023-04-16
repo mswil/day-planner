@@ -4,9 +4,9 @@ import { Ec2Stack } from './day-planner-ec2-stack';
 
 export class DayPlannerAppStage extends cdk.Stage {
 
-    constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+    constructor(scope: Construct, id: string, branch: string = 'main', props?: cdk.StageProps) {
       super(scope, id, props);
 
-      const ec2Stack = new Ec2Stack(this, 'Ec2Stack');
+      const ec2Stack = new Ec2Stack(this, `Ec2Stack-${branch}`);
     }
 }

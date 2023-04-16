@@ -30,7 +30,7 @@ export class DayPlannerPipelineStack extends Stack {
       }
     })
 
-    pipeline.addStage(new DayPlannerAppStage(this, "app", {
+    pipeline.addStage(new DayPlannerAppStage(this, "app", branch, {
       env: { account: "639197873250", region: "us-east-1" }
     }))
 
